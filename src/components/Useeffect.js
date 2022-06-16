@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 export default function useeffect() {
-  const [resolve, setResolve] = useState('Posts');
+  const [resolve, setResolve] = useState('posts');
+  const [data, setData] = useState([]);
   console.log('render before ');
-  useEffect(() => {
-    console.log('ComponentDidMount Method Just time render');
-  }, []);
-  //Just one time it's running on onClick method. because dependency in state
-  useEffect(() => {
-    console.log('ComponentDidUpdate Method');
-  }, [resolve]);
+
   // Call DummyApi
- 
+  useEffect(() => {
+    fetch(`https://jsonplaceholder.typicode.com/${resolve}`)
+      .then((response) => response.json())
+      .then((json) => setData(json));
+    // .then((json) => console.log(json));
+  }, [resolve]);
   return (
     <div>
       <button type="button" onClick={() => setResolve('posts')}>
@@ -26,6 +26,18 @@ export default function useeffect() {
       </button>
       <br />
       <h4>{resolve}</h4>
+      <br />
+      <div>
+        {data.map((item) => {
+          return (
+            <p>
+              <b>Title:</b>
+              {item.title} <b>Name:</b>
+              {item.name}
+            </p>
+          );
+        })}
+      </div>
     </div>
   );
 }
