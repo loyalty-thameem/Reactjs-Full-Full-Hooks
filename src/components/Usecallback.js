@@ -3,7 +3,8 @@ function List({ getItems }) {
   const [data, setData] = React.useState([]);
   React.useEffect(() => {
     console.log('this is useEffect. updating......');
-    setData(getItems);
+    //Callback pass to arguments value -1
+    setData(getItems(2));
   }, [getItems]);
   return (
     <div>
@@ -17,10 +18,17 @@ export default function usecallback() {
   const [number, setNumber] = React.useState(0);
   const [dark, setDark] = React.useState(false);
   //only render for input changes. not render for dark theme
-  const getItems = React.useCallback(() => {
-    console.log('use Call back');
-    return [number, number + 2, number + 5];
-  }, [number]);
+  const getItems = React.useCallback(
+    (decrement) => {
+      console.log('use Call back');
+      return [
+        number + decrement,
+        number + 2 + decrement,
+        number + 5 + decrement,
+      ];
+    },
+    [number]
+  );
   //style
   const themeStyles = {
     backgroundColor: dark ? 'black' : 'white',
