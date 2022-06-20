@@ -1,53 +1,68 @@
 import React from 'react';
 // // Todos components
-function Todos({ todo,dispatch }) {
-  function toggleChange(){
+function Todos({ todo, dispatch }) {
+  function toggleChange() {
     dispatch({
-      type:ACTION.TOGGLE_TODO,
-      id:todo.id
-    })
+      type: ACTION.TOGGLE_TODO,
+      id: todo.id,
+    });
+    console.log('action is ' + ACTION);
   }
   return (
     <div>
-        <span style={{backgroundColor:todo.completed?'green':'red'}}><b>{todo.name}{' '}</b></span>
-        <button type="button" onClick={toggleChange}>
+      <span style={{ backgroundColor: todo.completed ? 'green' : 'red' }}>
+        <b>{todo.name} </b>
+      </span>
+      <button type="button" onClick={toggleChange}>
         Toggle Change
       </button>
-      <button type="button" onClick={}>
+      <button
+        type="button"
+        onClick={() => {
+          dispatch({
+            type: ACTION.TOGGLE_TODO,
+            id: todo.id,
+          });
+        }}
+      >
         Delete
       </button>
     </div>
   );
 }
- //Default action type setup
- function ACTION() {
+//Default action type setup
+function ACTION() {
   return {
     ADD_TODO: 'add-todo',
-    TOGGLE_TODO:'toggle-todo'
+    TOGGLE_TODO: 'toggle-todo',
+    DELETE_TODO: 'delete-todo',
   };
 }
 //function of usereducer
 function reducer(todos, action) {
   switch (action.type) {
     case ACTION.ADD_TODO:
-      return  [...todos, createTodo(action.payload.name)];
-      case ACTION.TOGGLE_TODO:{
-       return todos.map(todo=>{
-        if(todo.id === action.payload.id){
-          return{...todo,completed:!todo.completed}
+      return [...todos, createTodo(action.payload.name)];
+    case ACTION.TOGGLE_TODO: {
+      return todos.map((todo) => {
+        if (todo.id === action.payload.id) {
+          return { ...todo, completed: !todo.completed };
         }
         return todo;
-      })
-      }
+      });
+    }
+    case DELETE_TODO:
+      return todos.filter((todo) => todo.id !== action.payload.id);
     default:
-      return { todos };
+      return todos;
   }
 }
 //createTodo function
 function createTodo(name) {
+  console.log('this createTodo ' + name);
   return {
     name: name,
-    id: new Date().getSeconds(),
+    id: Date.now(),
     completed: false,
   };
 }
@@ -55,7 +70,7 @@ export default function usereducer() {
   //useReducer similar to useState. but useReduce is bigdeal and complex. It's also managed state.
   const [todos, dispatch] = React.useReducer(reducer, []);
   const [name, setName] = React.useState('');
- 
+
   //input onChanges
   function handleChange(event) {
     setName(event.target.value);
@@ -70,6 +85,7 @@ export default function usereducer() {
       },
     });
     console.log('onSubmit');
+    console.log('this is ' + name);
     setName('');
   }
   console.log(todos);
@@ -81,11 +97,9 @@ export default function usereducer() {
         <br />
       </form>
       {/* {todos.map(todo=>console.log(todo.name))} */}
-      {
-        todos.map(todo=>{
-          return <Todos todo={todo} dispatch={dispatch} />
-        })
-      }
+      {todos.map((todo) => {
+        return <Todos todo={todo} dispatch={dispatch} />;
+      })}
     </div>
   );
 }
