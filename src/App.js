@@ -13,8 +13,8 @@ export default function App() {
       <Usestate />
       <Useref />
       <Usememo />
-      <Usereducer />
       <Usecallback />
+      <Usereducer />
       <Useeffect />
     </div>
   );
