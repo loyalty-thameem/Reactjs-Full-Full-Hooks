@@ -20,7 +20,7 @@ function Todos({ todo, dispatch }) {
         type="button"
         onClick={() => {
           dispatch({
-            type: ACTION.TOGGLE_TODO,
+            type: ACTION.DELETE_TODO,
             id: todo.id,
           });
         }}
