@@ -3,33 +3,39 @@ export default function usereducer() {
   //useReducer similar to useState. but useReduce is bigdeal and complex. It's also managed state.
   const [state, dispatch] = React.useReducer(reducer, { count: 0 });
   // const [count, setCount] = React.useState(0);
+  //Default action type setup
+  function ACTION() {
+    return {
+      INCREMENT: 'Increment',
+      DECREMENT: 'Decrement',
+    };
+  }
   //function of usereducer
   function reducer(state, action) {
     switch (action.type) {
-      case 'Increment':
+      case ACTION.INCREMENT:
         return {
           count: state.count + 1,
         };
-      case 'Decrement':
+      case ACTION.DECREMENT:
         return {
           count: state.count + 1,
         };
+      default:
+        return { state };
     }
-    return {
-      count: state.count + 1,
-    };
   }
   //Increment
   function handleClickIncrement() {
     // setCount((prevCount) => prevCount + 1);
     dispatch({
-      type: 'Increment',
+      type: ACTION.INCREMENT,
     });
   }
   function handleClickdecrement() {
     // setCount((prevCount) => prevCount - 1);
     dispatch({
-      type: 'Decrement',
+      type: ACTION.DECREMENT,
     });
   }
   return (
