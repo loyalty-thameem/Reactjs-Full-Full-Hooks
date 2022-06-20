@@ -3,6 +3,7 @@ import './style.css';
 import Usestate from './components/Usestate.js';
 import Useeffect from './components/Useeffect.js';
 import Useref from './components/Useref.js';
+import Usememo from './components/Usememo.js';
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <p>Start editing to see some magic happen :)</p>
       <Usestate />
       <Useref />
+      <Usememo />
       <Useeffect />
     </div>
   );
