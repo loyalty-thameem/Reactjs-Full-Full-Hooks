@@ -7,10 +7,13 @@ export default function usememo() {
     console.log('handleChange');
   }
   //style
-  const themeStyles = {
-    backgroundColor: dark ? 'black' : 'white',
-    color: dark ? 'white' : 'black',
-  };
+  //2: why used useMemo because the dark theme only change without input value.only render for dark theme.
+  const themeStyles = React.useMemo(() => {
+    return {
+      backgroundColor: dark ? 'black' : 'white',
+      color: dark ? 'white' : 'black',
+    };
+  }, [dark]);
   //UseEffect
   // themeStyles called everytime likes input change and themeStyles change
   React.useEffect(() => {
