@@ -9,6 +9,7 @@ export default function usememo() {
   //style
   //2: why used useMemo because the dark theme only change without input value.only render for dark theme.
   const themeStyles = React.useMemo(() => {
+    console.log('only render for dark state');
     return {
       backgroundColor: dark ? 'black' : 'white',
       color: dark ? 'white' : 'black',
@@ -25,6 +26,7 @@ export default function usememo() {
     [number]
   );
   //slowFunction
+  //2 when use useMemo? when use slowFunction you can use useMemo on the time
   function slowFunction(num) {
     for (let i = 0; i <= 1000000; i++) {
       console.log('loop in');
