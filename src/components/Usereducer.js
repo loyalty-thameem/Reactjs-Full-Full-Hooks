@@ -1,13 +1,16 @@
 import React from 'react';
-// Todos components
-function Todos({ todo }) {
+// // Todos components
+function Todos({ todo,dispatch }) {
   function toggleChange(){
-    dispatch()
+    dispatch({
+      type:ACTION.TOGGLE_TODO,
+      id:todo.id
+    })
   }
   return (
     <div>
-        <h5>{todo.name}</h5>
-         <button type="button" onClick={toggleChange}>
+        <span style={{backgroundColor:todo.completed?'green':'red'}}><b>{todo.name}{' '}</b></span>
+        <button type="button" onClick={toggleChange}>
         Toggle Change
       </button>
       <button type="button" onClick={}>
@@ -16,36 +19,43 @@ function Todos({ todo }) {
     </div>
   );
 }
+ //Default action type setup
+ function ACTION() {
+  return {
+    ADD_TODO: 'add-todo',
+    TOGGLE_TODO:'toggle-todo'
+  };
+}
+//function of usereducer
+function reducer(todos, action) {
+  switch (action.type) {
+    case ACTION.ADD_TODO:
+      return  [...todos, createTodo(action.payload.name)];
+      case ACTION.TOGGLE_TODO:{
+       return todos.map(todo=>{
+        if(todo.id === action.payload.id){
+          return{...todo,completed:!todo.completed}
+        }
+        return todo;
+      })
+      }
+    default:
+      return { todos };
+  }
+}
+//createTodo function
+function createTodo(name) {
+  return {
+    name: name,
+    id: new Date().getSeconds(),
+    completed: false,
+  };
+}
 export default function usereducer() {
   //useReducer similar to useState. but useReduce is bigdeal and complex. It's also managed state.
   const [todos, dispatch] = React.useReducer(reducer, []);
   const [name, setName] = React.useState('');
-  //Default action type setup
-  function ACTION() {
-    return {
-      ADD_TODO: 'add-todo',
-    };
-  }
-  //function of usereducer
-  function reducer(todos, action) {
-    switch (action.type) {
-      case ACTION.ADD_TODO:
-        return {
-          todos: [...todos, createTodo(action.payload.name)],
-        };
-
-      default:
-        return { todos };
-    }
-  }
-  //createTodo function
-  function createTodo(name) {
-    return {
-      name: name,
-      id: new Date().getSeconds(),
-      completed: false,
-    };
-  }
+ 
   //input onChanges
   function handleChange(event) {
     setName(event.target.value);
@@ -62,18 +72,20 @@ export default function usereducer() {
     console.log('onSubmit');
     setName('');
   }
-  // console.log(todos);
+  console.log(todos);
   return (
     <div>
       <h2>useReducer</h2>
       <form onSubmit={handleSubmitted}>
         <input type="text" value={name} onChange={handleChange} />
         <br />
-        {name}
       </form>
-      {todos.map(todo=>{
-      <Todos todo={todo} dispatch={dispatch} />
-      })}
+      {/* {todos.map(todo=>console.log(todo.name))} */}
+      {
+        todos.map(todo=>{
+          return <Todos todo={todo} dispatch={dispatch} />
+        })
+      }
     </div>
   );
 }
