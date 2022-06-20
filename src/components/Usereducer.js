@@ -1,57 +1,47 @@
 import React from 'react';
 export default function usereducer() {
   //useReducer similar to useState. but useReduce is bigdeal and complex. It's also managed state.
-  const [state, dispatch] = React.useReducer(reducer, { count: 0 });
-  // const [count, setCount] = React.useState(0);
+  const [todos, dispatch] = React.useReducer(reducer, []);
+  const [name, setName] = React.useState('');
   //Default action type setup
   function ACTION() {
     return {
-      INCREMENT: 'Increment',
-      DECREMENT: 'Decrement',
+     ADD_TODO:'add-todo'
     };
   }
   //function of usereducer
-  function reducer(state, action) {
+  function reducer(todos, action) {
     switch (action.type) {
-      case ACTION.INCREMENT:
+      case ACTION.ADD_TODO:
         return {
-          count: state.count + 1,
+          todos:[...todos,createTodo()],
         };
-      case ACTION.DECREMENT:
-        return {
-          count: state.count + 1,
-        };
+    
       default:
-        return { state };
+        return { todos };
     }
   }
-  //Increment
-  function handleClickIncrement() {
-    // setCount((prevCount) => prevCount + 1);
-    dispatch({
-      type: ACTION.INCREMENT,
-    });
+  //createTodo function
+  function createTodo(){
+
   }
-  function handleClickdecrement() {
-    // setCount((prevCount) => prevCount - 1);
-    dispatch({
-      type: ACTION.DECREMENT,
-    });
+  //input onChanges 
+  function handleChange(event){
+   setName(event.target.value); 
   }
   return (
     <div>
       <h2>useReducer</h2>
-      <span>
-        {/* <b>{count}</b> */}
-        <b>{state.count}</b>
-      </span>
+      <form onSumbit={}>
+     <input type='text' value={name} onChange={handleChange}/>
       <br />
-      <button type="button" onClick={handleClickIncrement}>
-        Increment
-      </button>
-      <button type="button" onClick={handleClickdecrement}>
-        decrement
-      </button>
+  </form>
     </div>
   );
 }
+{/* <button type="button" onClick={handleClickIncrement}>
+Increment
+</button>
+<button type="button" onClick={handleClickdecrement}>
+decrement
+</button> */}
