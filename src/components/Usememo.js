@@ -11,7 +11,17 @@ export default function usememo() {
     backgroundColor: dark ? 'black' : 'white',
     color: dark ? 'white' : 'black',
   };
-  const doubleNumber = slowFunction(parseInt(number));
+  //UseEffect
+  // themeStyles called everytime likes input change and themeStyles change
+  React.useEffect(() => {
+    console.log('themeChanged');
+  }, [themeStyles]);
+  //Added usememo because slowFunction every change time is slow. use memo stored data. it's memoization
+  const doubleNumber = React.useMemo(
+    () => slowFunction(parseInt(number)),
+    [number]
+  );
+  //slowFunction
   function slowFunction(num) {
     for (let i = 0; i <= 1000000; i++) {
       console.log('loop in');
