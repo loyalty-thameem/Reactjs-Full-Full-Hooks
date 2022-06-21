@@ -1,27 +1,33 @@
 import React from 'react';
 export default function uselayouteffect() {
-  const [count, setCount] = React.useState(0);
+  const [show, setShow] = React.useState(false);
+  const button = React.useRef();
+  const popup = React.useRef();
+  // useLayoutEffect hook similar to useEffect but useEffect is async and useLayoutEffect is sync method.don't use anytime.
   React.useLayoutEffect(() => {
-    console.log(
-      'This hook similar to useEffect but useeffect is async. useLayoutEffect is sync method'
-    );
-  }, [count]);
-  function handleClickToIncrement() {
-    setCount((prevCount) => prevCount + 1);
-  }
-  function handleClickToDecrement() {
-    setCount((prevCount) => prevCount - 1);
-  }
+    if (popup.current == null || button.current == null) return;
+    const { botton } = button.current.getBoundingClientRect();
+    popup.current.style.top = `${botton + 25}px`;
+    console.log('this is botton value ' + botton);
+    console.log('this is uselayouteffect');
+  }, [show]);
   return (
     <div>
       <h2>useLayoutEffect</h2>
-      <h3>{count}</h3>
-      <button type="button" onClick={handleClickToIncrement}>
-        Increment
+      <button
+        type="button"
+        onClick={() => {
+          setShow((prevShow) => !prevShow);
+        }}
+        ref={button}
+      >
+        OnChange
       </button>
-      <button type="button" onClick={handleClickToDecrement}>
-        Decrement
-      </button>
+      {show && (
+        <div style={{ position: 'absolute' }} ref={popup}>
+          This is PopUP
+        </div>
+      )}
     </div>
   );
 }
