@@ -3,7 +3,9 @@ import { ThemesProvide } from './Usecontext.js';
 export default function Functionalcomponentusecontext() {
   //FunctionalComponentUseContext and created it.
   const darkTheme = React.useContext(ThemesProvide);
-  console.log('The theme from useContext and functional component');
+  console.log(
+    'The theme from useContext and functional component ' + darkTheme
+  );
   const themeStyles = {
     backgroundColor: darkTheme ? 'red' : 'yellow',
     color: darkTheme ? 'blue' : 'black',
@@ -12,7 +14,7 @@ export default function Functionalcomponentusecontext() {
   };
   return (
     <div style={themeStyles}>
-      <h2>class</h2>
+      <h2>functional</h2>
     </div>
   );
 }

@@ -14,11 +14,19 @@ export default class Classcomponentusecontext extends React.Component {
     return (
       <ThemesProvide.Consumer>
         {/* This is a callback function */}
-        {(darkTheme) => {
+        {({ darkTheme, setDarkTheme }) => {
           console.log('the darkTheme is ' + darkTheme);
           return (
             <div style={this.themeStyles(darkTheme)}>
               <h2>class</h2>
+              <button
+                type="button"
+                onClick={() => {
+                  setDarkTheme((prevDark) => !prevDark);
+                }}
+              >
+                Toggle Change
+              </button>
             </div>
           );
         }}
