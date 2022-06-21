@@ -7,12 +7,14 @@ import Usememo from './components/Usememo.js';
 import Usecallback from './components/Usecallback.js';
 import Usereducer from './components/Usereducer.js';
 import Uselayouteffect from './components/Uselayouteffect.js';
+import Usecontext from './components/useContext/Usecontext.js';
 
 export default function App() {
   return (
     <div>
       <Usestate />
       <Useref />
+      <Usecontext />
       <Usememo />
       <Usecallback />
       <Usereducer />
