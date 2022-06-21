@@ -1,8 +1,8 @@
 import React from 'react';
-import { ThemesProvide } from './Usecontext.js';
+import { useThemeConsumer } from './ThemeContext.js';
 export default function Functionalcomponentusecontext() {
+  const { darkTheme, setDarkTheme } = useThemeConsumer();
   //FunctionalComponentUseContext and created it.
-  const { darkTheme, setDarkTheme } = React.useContext(ThemesProvide);
   console.log(
     'The theme from useContext and functional component ' + darkTheme
   );

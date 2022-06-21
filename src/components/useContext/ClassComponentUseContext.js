@@ -1,6 +1,6 @@
 import React from 'react';
 //Import first
-import { ThemesProvide } from './Usecontext.js';
+import { ThemesProvide } from './ThemeContext.js';
 export default class Classcomponentusecontext extends React.Component {
   themeStyles(dark) {
     return {
