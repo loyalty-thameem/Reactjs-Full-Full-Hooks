@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemesProvide } from './Usecontext.js';
 export default function Functionalcomponentusecontext() {
   //FunctionalComponentUseContext and created it.
-  const darkTheme = React.useContext(ThemesProvide);
+  const { darkTheme, setDarkTheme } = React.useContext(ThemesProvide);
   console.log(
     'The theme from useContext and functional component ' + darkTheme
   );
@@ -15,6 +15,14 @@ export default function Functionalcomponentusecontext() {
   return (
     <div style={themeStyles}>
       <h2>functional</h2>
+      <button
+        type="button"
+        onClick={() => {
+          setDarkTheme((prevDark) => !prevDark);
+        }}
+      >
+        Toggle Change
+      </button>
     </div>
   );
 }
