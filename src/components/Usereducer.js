@@ -31,28 +31,28 @@ function Todos({ todo, dispatch }) {
   );
 }
 //Default action type setup
-function ACTION() {
-  return {
-    ADD_TODO: 'add-todo',
-    TOGGLE_TODO: 'toggle-todo',
-    DELETE_TODO: 'delete-todo',
-  };
-}
+const ACTION = {
+  ADD_TODO: 'add-todo',
+  TOGGLE_TODO: 'toggle-todo',
+  DELETE_TODO: 'delete-todo',
+};
 //function of usereducer
 function reducer(todos, action) {
+  console.log('action----', action);
+  console.log('todos----', todos);
   switch (action.type) {
     case ACTION.ADD_TODO:
       return [...todos, createTodo(action.payload.name)];
     case ACTION.TOGGLE_TODO: {
       return todos.map((todo) => {
-        if (todo.id === action.payload.id) {
+        if (todo.id === action.id) {
           return { ...todo, completed: !todo.completed };
         }
         return todo;
       });
     }
-    case DELETE_TODO:
-      return todos.filter((todo) => todo.id !== action.payload.id);
+    case ACTION.DELETE_TODO:
+      return todos.filter((todo) => todo.id !== action.id);
     default:
       return todos;
   }
